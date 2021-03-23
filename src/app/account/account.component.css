@@ -1,0 +1,12 @@
+ .table-information {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+.form-test {
+  width: 100%;
+  height: auto;
+}

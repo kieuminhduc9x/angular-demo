@@ -1,0 +1,84 @@
+<h3 class="text-center" style="margin-top: 50px;">Danh sách thông tin tài khoản</h3>
+<div class="table-information">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      <button class="btn btn-danger" style="margin-bottom: 20px; display: flex; justify-items: end;" (click)="addRow()">Thêm mới</button>
+      <form action="" [formGroup]="formAccount" novalidate>
+        <table class="table table-dark">
+          <thead>
+            <td>STT</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Age</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Address</td>
+            <td style="width: 100px; text-align: center;">Action</td>
+          </thead>
+          <tbody>
+            <tr *ngFor='let item of account,index as i'>
+              <td>{{ i + 1}}</td>
+              <td>
+                <div *ngIf="item.editable === true">
+                  <input type="text" name="firstname" formControlName="firstname" [(ngModel)]="modelAccount.firstname">
+                </div>
+                <div *ngIf="item.editable === false || !item.editable">
+                  {{ item.firstname }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.editable === true">
+                  <input type="text" name="lastname" formControlName="lastname" [(ngModel)]="modelAccount.lastname">
+                </div>
+                <div *ngIf="item.editable === false || !item.editable">
+                  {{ item.lastname }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.editable === true">
+                  <input type="text" name="age" formControlName="age" [(ngModel)]="modelAccount.age">
+                </div>
+                <div *ngIf="item.editable === false || !item.editable">
+                  {{ item.age }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.editable === true">
+                  <select name="gender" formControlName="gender" [(ngModel)]="modelAccount.gender">
+                    <option *ngFor="let itemGender of genderList" key="itemGender.value" [value]="itemGender.value">{{ itemGender.name }}</option>
+                  </select>
+                </div>
+                <div *ngIf="item.editable === false || !item.editable">
+                  {{ getNameByValue(item.gender, genderList) }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.editable === true">
+                  <input type="text" name="email" formControlName="email" [(ngModel)]="modelAccount.email">
+                </div>
+                <div *ngIf="item.editable === false || !item.editable">
+                  {{ item.email }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.editable === true">
+                  <input type="text" name="address" formControlName="address" [(ngModel)]="modelAccount.address">
+                </div>
+                <div *ngIf="item.editable === false || !item.editable">
+                  {{ item.address }}
+                </div>
+              </td>
+              <td style="width: 100px">
+                <div class="justify-content-between d-flex">
+                  <span *ngIf="!item.editable" style="color: red;" (click)="onEdit(item)">Sửa</span>
+                  <span *ngIf="item.editable === true" style="color: red;" (click)="onSave(item)">Lưu</span>
+                  <span style="color: red;" (click)="onDelete(item.account_number)">Xóa</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
