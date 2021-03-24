@@ -7,8 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/forms'
 import { AccountComponent } from './account/account.component'
 import { HttpClientModule } from '@angular/common/http'
-// import { JwPaginationModule } from 'jw-angular-pagination';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -25,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // JwPaginationModule
+    NgxPaginationModule
 
   ],
   providers: [],

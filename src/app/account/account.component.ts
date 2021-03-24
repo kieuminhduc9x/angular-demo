@@ -1,7 +1,6 @@
 import { isNgTemplate, ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { element } from 'protractor';
 import { ServiceService } from '../service/service.service'
 
 @Component({
@@ -25,12 +24,16 @@ export class AccountComponent implements OnInit {
     }
   ]
   isNotNumber = false
+  page = 0
+  pageSize = 8
+  count = 0
+
 
   ngOnInit(): void {
-    this.serverHttp.getInfo().subscribe((data) => {
+    this.serverHttp.getInfo({}).subscribe((data: any) => {
       this.account = data.data
+      this.count = this.account.length
     })
-    this.account = Array(25).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}` }));
   }
 
   constructor(
@@ -119,23 +122,18 @@ export class AccountComponent implements OnInit {
     })
   }
   getListAccount() {
-    this.serverHttp.getInfo().subscribe((data) => {
+    const params = {
+      page: this.page ? this.page : null,
+      pageSize: this.pageSize ? this.pageSize : null
+    }
+    this.serverHttp.getInfo(params).subscribe((data: any) => {
       this.account = data.data
     })
   }
 
-  onChangePage(account: Array<any>) {
-    // update current page of items
-    this.account = account;
-  }
-
-  changeAge(value: any) {
-    const reg = new RegExp('[0-9]')
-    if (reg.test(value) === false) {
-      this.isNotNumber = true
-    } else {
-      this.isNotNumber = false
-    }
+  handlePageChange(event: any) {
+    this.page = event;
+    this.getListAccount();
   }
 
 }

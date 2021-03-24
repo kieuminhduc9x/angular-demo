@@ -47,10 +47,10 @@ export class ServiceService {
       );
   }
 
-  public getInfo (): Observable<any>{
+  public getInfo (params: any): Observable<{}>{
     const url = this.REST_API_SERVER + '/accounts';
     return this.httpClient
-    .get<any>(url, this.httpOptions)
+    .get<object>(url, this.httpOptions)
     .pipe(catchError(this.handleError));
   }
 
@@ -75,6 +75,12 @@ export class ServiceService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+  public getById(id: number): Observable<number> {
+    const url = this.REST_API_SERVER + '/account/' + id;
+    return this.httpClient.get<number>(url).pipe(
+      catchError(this.handleError)
+    );
   }
 
 }
