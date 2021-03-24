@@ -7,8 +7,7 @@
       <input type="text" id="user" class="fadeIn second" [(ngModel)]="model.user" name="user" formControlName="user"
         placeholder="user name" />
       <div *ngIf="formLogin.get('user')?.invalid && (formLogin.get('user')?.dirty || formLogin.get('user')?.touched)">
-        <!-- <p class="feed-back-error" *ngIf="formLogin.get('user')?.hasError('required')">User bắt buộc nhập</p> -->
-        <p class="feed-back-error" *ngIf="formLogin.get('user')?.hasError('maxLength')">Nhập tối đa 250 ký tự</p>
+        <p class="feed-back-error" *ngIf="formLogin.get('user')?.hasError('required')">User bắt buộc nhập</p>
       </div>
 
       <input type="password" id="password" class="fadeIn third" [(ngModel)]="model.password" name="password"

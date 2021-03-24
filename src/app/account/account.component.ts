@@ -86,7 +86,7 @@ export class AccountComponent implements OnInit {
       email: this.modelAccount.email,
       address: this.modelAccount.address
     }
-    if(this.formAccount.valid){
+    if (this.formAccount.valid) {
       if (item.account_number === null || item.account_number === undefined || !item.account_number) {
         this.serverHttp.createAccount(params).subscribe(data => {
           if (data) {
@@ -104,7 +104,7 @@ export class AccountComponent implements OnInit {
           }
         })
       }
-    }else {
+    } else {
       return;
     }
   }
