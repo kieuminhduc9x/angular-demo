@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit {
       name: 'Nữ'
     }
   ]
+  isNotNumber = false
 
   ngOnInit(): void {
     this.serverHttp.getInfo().subscribe((data) => {
@@ -41,8 +42,8 @@ export class AccountComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.maxLength(250)]],
       lastname: ['', [Validators.required, Validators.maxLength(250)]],
       gender: ['', [Validators.required]],
-      age: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.maxLength(250)]],
+      age: ['', [Validators.required, Validators.maxLength(2)]],
+      email: ['', [Validators.required, Validators.maxLength(250), Validators.email]],
       address: ['', [Validators.required, Validators.maxLength(250)]]
     })
   }
@@ -105,7 +106,7 @@ export class AccountComponent implements OnInit {
         })
       }
     } else {
-      return;
+      this.formAccount.markAllAsTouched();
     }
   }
 
@@ -126,6 +127,15 @@ export class AccountComponent implements OnInit {
   onChangePage(account: Array<any>) {
     // update current page of items
     this.account = account;
+  }
+
+  changeAge(value: any) {
+    const reg = new RegExp('[0-9]')
+    if (reg.test(value) === false) {
+      this.isNotNumber = true
+    } else {
+      this.isNotNumber = false
+    }
   }
 
 }

@@ -24,6 +24,7 @@
                   <input type="text" name="firstname" formControlName="firstname" [(ngModel)]="modelAccount.firstname">
                   <div *ngIf="formAccount.get('firstname')?.invalid && (formAccount.get('firstname')?.dirty || formAccount.get('firstname')?.touched)">
                     <p class="feed-back-error" *ngIf="formAccount.get('firstname')?.hasError('required')">Firstname bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('firstname')?.hasError('maxlength')">Nhập tối đa 250 ký tự</p>
                   </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
@@ -35,6 +36,7 @@
                   <input type="text" name="lastname" formControlName="lastname" [(ngModel)]="modelAccount.lastname">
                   <div *ngIf="formAccount.get('lastname')?.invalid && (formAccount.get('lastname')?.dirty || formAccount.get('lastname')?.touched)">
                     <p class="feed-back-error" *ngIf="formAccount.get('lastname')?.hasError('required')">Lastname bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('lastname')?.hasError('maxlength')">Nhập tối đa 250 ký tự</p>
                   </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
@@ -43,9 +45,10 @@
               </td>
               <td>
                 <div *ngIf="item.editable === true">
-                  <input type="text" name="age" formControlName="age" [(ngModel)]="modelAccount.age">
+                  <input type="text" name="age" formControlName="age" [(ngModel)]="modelAccount.age" (change)="changeAge(modelAccount.age)">
                   <div *ngIf="formAccount.get('age')?.invalid && (formAccount.get('age')?.dirty || formAccount.get('age')?.touched)">
                     <p class="feed-back-error" *ngIf="formAccount.get('age')?.hasError('required')">Age bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('age')?.hasError('maxlength')">Nhập tối đa 2 ký tự</p>
                   </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
@@ -54,12 +57,12 @@
               </td>
               <td>
                 <div *ngIf="item.editable === true">
-                  <select name="gender" formControlName="gender" [(ngModel)]="modelAccount.gender">
+                  <select style="height: 30px; padding: 0 30px 0 15px;" class="custom-select" name="gender" formControlName="gender" [(ngModel)]="modelAccount.gender">
                     <option *ngFor="let itemGender of genderList" [value]="itemGender.value">{{ itemGender.name }}
                     </option>
                   </select>
                   <div *ngIf="formAccount.get('gender')?.invalid && (formAccount.get('gender')?.dirty || formAccount.get('gender')?.touched)">
-                    <p class="feed-back-error" *ngIf="formAccount.get('gender')?.hasError('required')">Age bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('gender')?.hasError('required')">Gender bắt buộc nhập</p>
                   </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
@@ -70,7 +73,9 @@
                 <div *ngIf="item.editable === true">
                   <input type="text" name="email" formControlName="email" [(ngModel)]="modelAccount.email">
                   <div *ngIf="formAccount.get('email')?.invalid && (formAccount.get('email')?.dirty || formAccount.get('email')?.touched)">
-                    <p class="feed-back-error" *ngIf="formAccount.get('email')?.hasError('required')">Age bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('email')?.hasError('required')">Email bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('email')?.hasError('email')">Email không hợp lệ</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('email')?.hasError('maxlength')">Nhập tối đa 250 ký tự</p>
                   </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
@@ -81,7 +86,8 @@
                 <div *ngIf="item.editable === true">
                   <input type="text" name="address" formControlName="address" [(ngModel)]="modelAccount.address">
                   <div *ngIf="formAccount.get('address')?.invalid && (formAccount.get('address')?.dirty || formAccount.get('address')?.touched)">
-                    <p class="feed-back-error" *ngIf="formAccount.get('address')?.hasError('required')">Age bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('address')?.hasError('required')">Address bắt buộc nhập</p>
+                    <p class="feed-back-error" *ngIf="formAccount.get('address')?.hasError('maxlength')">Nhập tối đa 250 ký tự</p>
                   </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
