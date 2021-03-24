@@ -1,4 +1,4 @@
- .table-information {
+.table-information {
   width: 100%;
   height: auto;
   display: flex;
@@ -9,4 +9,9 @@
 .form-test {
   width: 100%;
   height: auto;
+}
+.feed-back-error {
+  font-size: 12px;
+  color: red;
+  text-align: left;
 }

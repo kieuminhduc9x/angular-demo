@@ -4,31 +4,22 @@
     <div class="fadeIn first">
     </div>
     <form [formGroup]="formLogin" novalidate>
-      <input type="text" id="user" class="fadeIn second" [(ngModel)]="model.user" name="user" formControlName="user" placeholder="user name" required="true" />
-      <input type="password" id="password" class="fadeIn third" [(ngModel)]="model.password" name="password" formControlName="password" placeholder="password" />
+      <input type="text" id="user" class="fadeIn second" [(ngModel)]="model.user" name="user" formControlName="user"
+        placeholder="user name" />
+      <div *ngIf="formLogin.get('user')?.invalid && (formLogin.get('user')?.dirty || formLogin.get('user')?.touched)">
+        <!-- <p class="feed-back-error" *ngIf="formLogin.get('user')?.hasError('required')">User bắt buộc nhập</p> -->
+        <p class="feed-back-error" *ngIf="formLogin.get('user')?.hasError('maxLength')">Nhập tối đa 250 ký tự</p>
+      </div>
+
+      <input type="password" id="password" class="fadeIn third" [(ngModel)]="model.password" name="password"
+        formControlName="password" placeholder="password" />
+        <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)">
+          <p class="feed-back-error" *ngIf="formLogin.get('password')?.hasError('required')">Password bắt buộc nhập</p>
+        </div>
       <input type="button" class="fadeIn fourth" value="Log In" (click)="clickSubmit()" />
     </form>
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-  </div>
-</div>
-<div *ngIf="content !== null" class="modal fade" data-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{ content }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
     </div>
   </div>
 </div>

@@ -2,7 +2,8 @@
 <div class="table-information">
   <div class="row">
     <div class="col-xs-12 col-md-12 col-lg-12">
-      <button class="btn btn-danger" style="margin-bottom: 20px; display: flex; justify-items: end;" (click)="addRow()">Thêm mới</button>
+      <button class="btn btn-danger" style="margin-bottom: 20px; display: flex; justify-items: end;"
+        (click)="addRow()">Thêm mới</button>
       <form action="" [formGroup]="formAccount" novalidate>
         <table class="table table-dark">
           <thead>
@@ -21,6 +22,9 @@
               <td>
                 <div *ngIf="item.editable === true">
                   <input type="text" name="firstname" formControlName="firstname" [(ngModel)]="modelAccount.firstname">
+                  <div *ngIf="formAccount.get('firstname')?.invalid && (formAccount.get('firstname')?.dirty || formAccount.get('firstname')?.touched)">
+                    <p class="feed-back-error" *ngIf="formAccount.get('firstname')?.hasError('required')">Firstname bắt buộc nhập</p>
+                  </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
                   {{ item.firstname }}
@@ -29,6 +33,9 @@
               <td>
                 <div *ngIf="item.editable === true">
                   <input type="text" name="lastname" formControlName="lastname" [(ngModel)]="modelAccount.lastname">
+                  <div *ngIf="formAccount.get('lastname')?.invalid && (formAccount.get('lastname')?.dirty || formAccount.get('lastname')?.touched)">
+                    <p class="feed-back-error" *ngIf="formAccount.get('lastname')?.hasError('required')">Lastname bắt buộc nhập</p>
+                  </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
                   {{ item.lastname }}
@@ -37,6 +44,9 @@
               <td>
                 <div *ngIf="item.editable === true">
                   <input type="text" name="age" formControlName="age" [(ngModel)]="modelAccount.age">
+                  <div *ngIf="formAccount.get('age')?.invalid && (formAccount.get('age')?.dirty || formAccount.get('age')?.touched)">
+                    <p class="feed-back-error" *ngIf="formAccount.get('age')?.hasError('required')">Age bắt buộc nhập</p>
+                  </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
                   {{ item.age }}
@@ -45,8 +55,12 @@
               <td>
                 <div *ngIf="item.editable === true">
                   <select name="gender" formControlName="gender" [(ngModel)]="modelAccount.gender">
-                    <option *ngFor="let itemGender of genderList" key="itemGender.value" [value]="itemGender.value">{{ itemGender.name }}</option>
+                    <option *ngFor="let itemGender of genderList" [value]="itemGender.value">{{ itemGender.name }}
+                    </option>
                   </select>
+                  <div *ngIf="formAccount.get('gender')?.invalid && (formAccount.get('gender')?.dirty || formAccount.get('gender')?.touched)">
+                    <p class="feed-back-error" *ngIf="formAccount.get('gender')?.hasError('required')">Age bắt buộc nhập</p>
+                  </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
                   {{ getNameByValue(item.gender, genderList) }}
@@ -55,6 +69,9 @@
               <td>
                 <div *ngIf="item.editable === true">
                   <input type="text" name="email" formControlName="email" [(ngModel)]="modelAccount.email">
+                  <div *ngIf="formAccount.get('email')?.invalid && (formAccount.get('email')?.dirty || formAccount.get('email')?.touched)">
+                    <p class="feed-back-error" *ngIf="formAccount.get('email')?.hasError('required')">Age bắt buộc nhập</p>
+                  </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
                   {{ item.email }}
@@ -63,6 +80,9 @@
               <td>
                 <div *ngIf="item.editable === true">
                   <input type="text" name="address" formControlName="address" [(ngModel)]="modelAccount.address">
+                  <div *ngIf="formAccount.get('address')?.invalid && (formAccount.get('address')?.dirty || formAccount.get('address')?.touched)">
+                    <p class="feed-back-error" *ngIf="formAccount.get('address')?.hasError('required')">Age bắt buộc nhập</p>
+                  </div>
                 </div>
                 <div *ngIf="item.editable === false || !item.editable">
                   {{ item.address }}
@@ -78,6 +98,9 @@
             </tr>
           </tbody>
         </table>
+        <!-- <div class="card-footer pb-0 pt-3">
+          <jw-pagination [items]="account" (changePage)="onChangePage($event)"></jw-pagination>
+        </div> -->
       </form>
     </div>
   </div>

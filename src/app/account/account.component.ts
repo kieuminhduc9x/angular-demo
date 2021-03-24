@@ -25,16 +25,23 @@ export class AccountComponent implements OnInit {
     }
   ]
 
+  ngOnInit(): void {
+    this.serverHttp.getInfo().subscribe((data) => {
+      this.account = data.data
+    })
+    this.account = Array(25).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}` }));
+  }
+
   constructor(
     private serverHttp: ServiceService,
     private formBuilder: FormBuilder
   ) {
     this.formAccount = this.formBuilder.group({
-      account_number: ['', [Validators.required, Validators.maxLength(250)]],
+      account_number: [''],
       firstname: ['', [Validators.required, Validators.maxLength(250)]],
       lastname: ['', [Validators.required, Validators.maxLength(250)]],
       gender: ['', [Validators.required]],
-      age: ['', [Validators.required, Validators.maxLength(250)]],
+      age: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.maxLength(250)]],
       address: ['', [Validators.required, Validators.maxLength(250)]]
     })
@@ -60,9 +67,9 @@ export class AccountComponent implements OnInit {
       address: '',
       editable: true
     }
-    this.account = [newData,...account]
+    this.account = [newData, ...account]
   }
-  onEdit(item : any) {
+  onEdit(item: any) {
     this.modelAccount = item
     this.modelAccount.account_number = item.account_number
     console.log(item, this.modelAccount)
@@ -79,42 +86,46 @@ export class AccountComponent implements OnInit {
       email: this.modelAccount.email,
       address: this.modelAccount.address
     }
-    console.log(params)
-    if (item.account_number === null || item.account_number === undefined || !item.account_number) {
-      this.serverHttp.createAccount(params).subscribe(data => {
-        if (data) {
-          alert('Thêm mới account thành công')
-          this.getListAccount()
-        }
-      })
-    } else {
-      this.serverHttp.updateAccount(params).subscribe((data) => {
-        if (data) {
-          alert('Cập nhât account thành công')
-          this.getListAccount()
-        }
-      })
+    if(this.formAccount.valid){
+      if (item.account_number === null || item.account_number === undefined || !item.account_number) {
+        this.serverHttp.createAccount(params).subscribe(data => {
+          if (data) {
+            alert('Thêm mới account thành công')
+            this.getListAccount()
+            this.modelAccount = {}
+          }
+        })
+      } else {
+        this.serverHttp.updateAccount(params).subscribe((data) => {
+          if (data) {
+            alert('Cập nhât account thành công')
+            this.getListAccount()
+            this.modelAccount = {}
+          }
+        })
+      }
+    }else {
+      return;
     }
-    this.isEdit = false
   }
 
   onDelete(id: any) {
     this.serverHttp.deleteAccount(id).subscribe(data => {
-      if(data) {
+      if (data) {
         alert('Xóa account thành công')
         this.getListAccount()
       }
     })
   }
-  getListAccount () {
+  getListAccount() {
     this.serverHttp.getInfo().subscribe((data) => {
       this.account = data.data
     })
   }
-  ngOnInit(): void {
-    this.serverHttp.getInfo().subscribe((data) => {
-      this.account = data.data
-    })
+
+  onChangePage(account: Array<any>) {
+    // update current page of items
+    this.account = account;
   }
 
 }
