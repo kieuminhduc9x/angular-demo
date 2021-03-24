@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   content: object = {}
   result: any = {}
   check = false;
-  ngOnInit() {}
+  ngOnInit() { }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       password: this.model.password
     }
     if (this.formLogin.valid) {
-      this.serverHttp.login(params).subscribe(res => {
+      this.serverHttp.login(params).subscribe((res: any) => {
         if (res) {
           this.result = res
           if (this.result.detail === 'success') {
@@ -46,7 +46,11 @@ export class LoginComponent implements OnInit {
             alert('Đăng nhập thành công')
           } else {
             alert('Đăng nhập không thành công')
+            console.log('test 1')
           }
+        } else {
+          alert('Đăng nhập không thành công')
+          console.log('test 2')
         }
       })
     } else {

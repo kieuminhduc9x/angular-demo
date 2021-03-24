@@ -23,17 +23,52 @@ export class AccountComponent implements OnInit {
       name: 'Nữ'
     }
   ]
+  pageNumber: any = [
+    {
+      value: 15,
+      name: 15
+    },
+    {
+      value: 25,
+      name: 25
+    },
+    {
+      value: 50,
+      name: 50
+    },
+    {
+      value: 100,
+      name: 100
+    }
+  ]
+  size: any = 100
   isNotNumber = false
   page = 0
-  pageSize = 8
+  pageSize = 15
   count = 0
+  totalItem = 15
 
 
   ngOnInit(): void {
-    this.serverHttp.getInfo({}).subscribe((data: any) => {
+    this.getListAccount()
+  }
+  changeOptionSize (value: any) {
+    this.size = value.target.value
+    this.getListAccount()
+  }
+  getListAccount() {
+    const params = {
+      _size: this.size
+    }
+    this.serverHttp.getInfo(params).subscribe((data: any) => {
       this.account = data.data
       this.count = this.account.length
     })
+  }
+
+  handlePageChange(event: any) {
+    this.page = event;
+    this.getListAccount();
   }
 
   constructor(
@@ -121,19 +156,6 @@ export class AccountComponent implements OnInit {
       }
     })
   }
-  getListAccount() {
-    const params = {
-      page: this.page ? this.page : null,
-      pageSize: this.pageSize ? this.pageSize : null
-    }
-    this.serverHttp.getInfo(params).subscribe((data: any) => {
-      this.account = data.data
-    })
-  }
 
-  handlePageChange(event: any) {
-    this.page = event;
-    this.getListAccount();
-  }
 
 }

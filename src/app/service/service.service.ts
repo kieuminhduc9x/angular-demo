@@ -48,7 +48,7 @@ export class ServiceService {
   }
 
   public getInfo (params: any): Observable<{}>{
-    const url = this.REST_API_SERVER + '/accounts';
+    const url = this.REST_API_SERVER + '/accounts?'+ '_size=' + params._size;
     return this.httpClient
     .get<object>(url, this.httpOptions)
     .pipe(catchError(this.handleError));
